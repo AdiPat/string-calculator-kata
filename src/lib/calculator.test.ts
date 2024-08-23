@@ -70,4 +70,9 @@ describe("Calculator Tests", () => {
     const result = calculator.add("1, 2\n3,4\n5\n6, 7");
     expect(result).toBe(28);
   });
+
+  it("throws an exception when the input is invalid", async () => {
+    const calculator = await import("./calculator");
+    expect(() => calculator.add("1, 2,, 3,")).toThrow();
+  });
 });

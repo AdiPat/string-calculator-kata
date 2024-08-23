@@ -47,4 +47,9 @@ describe("Calculator Tests", () => {
     const result = calculator.add(values.join(","));
     expect(result).toBe(expected);
   });
+
+  it("throws exception for negative numbers", async () => {
+    const calculator = await import("./calculator");
+    expect(() => calculator.add("-1,4,-3,5")).toThrow();
+  });
 });

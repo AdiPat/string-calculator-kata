@@ -36,4 +36,15 @@ describe("Calculator Tests", () => {
     const result = calculator.add("1,5,7");
     expect(result).toBe(13);
   });
+
+  it("correctly adds arbitrary number of positive numbers", async () => {
+    const calculator = await import("./calculator");
+    const values = Array.from(
+      { length: Math.floor(Math.random() * 10000) },
+      (_, i) => Math.floor(Math.random() * 100)
+    );
+    const expected = values.reduce((acc, value) => acc + value, 0);
+    const result = calculator.add(values.join(","));
+    expect(result).toBe(expected);
+  });
 });

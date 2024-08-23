@@ -52,4 +52,10 @@ describe("Calculator Tests", () => {
     const calculator = await import("./calculator");
     expect(() => calculator.add("-1,4,-3,5")).toThrow();
   });
+
+  it("supports newline as delimiter", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.add("5,3,1\n2\n3");
+    expect(result).toBe(14);
+  });
 });

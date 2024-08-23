@@ -13,4 +13,10 @@ describe("Calculator Tests", () => {
     const calculator = await import("./calculator");
     expect((calculator as any).add("")).toBe(0);
   });
+
+  it("adds 1,5,7 to equal 13", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.add("1,5,7");
+    expect(result).toBe(13);
+  });
 });

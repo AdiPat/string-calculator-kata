@@ -17,6 +17,10 @@ function add(numbers: string): number {
   const result = values.reduce((acc, value) => {
     const valueAsNumber = parseInt(value);
 
+    if (isNaN(valueAsNumber)) {
+      throw new Error("Invalid number found: " + value);
+    }
+
     if (valueAsNumber < 0) {
       throw new Error("Negatives not allowed");
     }

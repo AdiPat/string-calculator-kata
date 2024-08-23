@@ -58,4 +58,16 @@ describe("Calculator Tests", () => {
     const result = calculator.add("5,3,1\n2\n3");
     expect(result).toBe(14);
   });
+
+  it("returns correct result when there are spaces in the input", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.add("1, 2, 3");
+    expect(result).toBe(6);
+  });
+
+  it("returns correct result when there are spaces and newlines in the input", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.add("1, 2\n3,4\n5\n6, 7");
+    expect(result).toBe(28);
+  });
 });

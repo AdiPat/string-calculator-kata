@@ -19,6 +19,18 @@ describe("Calculator Tests", () => {
     expect((calculator as any).add(null)).toBe(0);
   });
 
+  it("adds 2 numbers", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.add("10,30");
+    expect(result).toBe(40);
+  });
+
+  it("adds 3 numbers", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.add("1,2,3");
+    expect(result).toBe(6);
+  });
+
   it("adds 1,5,7 to equal 13", async () => {
     const calculator = await import("./calculator");
     const result = calculator.add("1,5,7");

@@ -12,7 +12,13 @@ function add(numbers: string): number {
   const values = numbers.split(",");
 
   const result = values.reduce((acc, value) => {
-    return acc + parseInt(value);
+    const valueAsNumber = parseInt(value);
+
+    if (valueAsNumber < 0) {
+      throw new Error("Negatives not allowed");
+    }
+
+    return acc + valueAsNumber;
   }, 0);
 
   return result;

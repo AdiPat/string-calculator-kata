@@ -9,6 +9,9 @@ function add(numbers: string): number {
     return 0;
   }
 
+  // replace newlines with ,
+  numbers = numbers.replace(/\n/g, ",");
+
   const values = numbers.split(",");
 
   const result = values.reduce((acc, value) => {

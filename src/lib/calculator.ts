@@ -9,7 +9,11 @@ function add(numbers: string): number {
     return 0;
   }
 
-  const result = -1;
+  const values = numbers.split(",");
+
+  const result = values.reduce((acc, value) => {
+    return acc + parseInt(value);
+  }, 0);
 
   return result;
 }

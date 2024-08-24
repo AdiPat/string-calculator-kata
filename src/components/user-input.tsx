@@ -19,6 +19,7 @@ export function UserInput({
   const onCalculate = () => {
     try {
       setShowResult(false);
+      setError("");
       const result = add(value);
       setResult(result);
       setShowResult(true);
@@ -30,12 +31,12 @@ export function UserInput({
   };
 
   return (
-    <div className="flex flex-col justify-center items-center mt-4">
+    <div className="flex flex-col justify-center items-center mt-4 p-8">
       <div
         className="flex flex-col justify-center items-center"
         style={{ width: "70%" }}
       >
-        <label className="text-white text-lg mb-4" htmlFor="numbers">
+        <label className="text-white text-lg mb-6" htmlFor="numbers">
           Enter string to compute sum:
         </label>
         <Input
@@ -46,7 +47,7 @@ export function UserInput({
         <Button
           size="lg"
           color="primary"
-          className="mt-4"
+          className="mt-6"
           onClick={onCalculate}
         >
           Calculate

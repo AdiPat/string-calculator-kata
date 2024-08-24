@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Result Tests renders a result with a number 1`] = `
+<div>
+  <div
+    class="text-gray-800 text-center mt-4 bg-gray-400 rounded-lg p-4"
+  >
+    <p
+      class="text-xl font-bold"
+    >
+      Result: 
+      0
+    </p>
+  </div>
+</div>
+`;

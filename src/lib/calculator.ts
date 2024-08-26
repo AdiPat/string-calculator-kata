@@ -11,7 +11,13 @@ function add(numbers: string): number {
 
   if (numbers.startsWith("//")) {
     const customDelimiter = numbers[2];
-    numbers = numbers.substring(4);
+
+    if (numbers[3] === "\n") {
+      numbers = numbers.substring(4);
+    } else {
+      numbers = numbers.substring(3);
+    }
+
     numbers = numbers.replaceAll(customDelimiter, ",");
   }
 

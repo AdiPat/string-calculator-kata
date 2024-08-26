@@ -81,4 +81,10 @@ describe("Calculator Tests", () => {
     const result = calculator.add("//;\n1;2;3");
     expect(result).toBe(6);
   });
+
+  it("returns the correct response is delimiter is present without newline", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.add("//;1;2;3");
+    expect(result).toBe(6);
+  });
 });

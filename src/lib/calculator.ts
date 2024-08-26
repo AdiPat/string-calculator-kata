@@ -9,6 +9,12 @@ function add(numbers: string): number {
     return 0;
   }
 
+  if (numbers.startsWith("//")) {
+    const customDelimiter = numbers[2];
+    numbers = numbers.substring(4);
+    numbers = numbers.replaceAll(customDelimiter, ",");
+  }
+
   // replace newlines with ,
   numbers = numbers.replace(/\n/g, ",");
 

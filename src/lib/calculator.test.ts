@@ -75,4 +75,10 @@ describe("Calculator Tests", () => {
     const calculator = await import("./calculator");
     expect(() => calculator.add("1, 2,, 3,")).toThrow();
   });
+
+  it("returns the correct result when there is a custom delimiter", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.add("//;\n1;2;3");
+    expect(result).toBe(6);
+  });
 });

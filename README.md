@@ -2,6 +2,8 @@
 
 This repository demonstrates the application of TDD to build a simple string calculator.
 
+[Live Demo](https://string-calculator-kata.vercel.app/)
+
 # Instructions
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).

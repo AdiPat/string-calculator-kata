@@ -89,4 +89,40 @@ describe("Calculator Tests", () => {
     const result = calculator.add("//*\n2*3*4");
     expect(result).toBe(24);
   });
+
+  it("extracts the delimiters correctly for multiple single character delimiters", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.extractDelimiters("//[$][%]\n2$3%4");
+    expect(result).toEqual(["$", "%"]);
+  });
+
+  it("extracts the delimiters correctly for 1 single character delimiters", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.extractDelimiters("//[$]\n2$3$4");
+    expect(result).toEqual(["$"]);
+  });
+
+  it("extracts the delimiters correctly for multiple multi-character delimiters", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.extractDelimiters("//[ok][%][$]\n2$3%4ok7");
+    expect(result).toEqual(["ok", "%", "$"]);
+  });
+
+  it("returns the correct result for multiple single character delimiters", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.add("//[$][%]\n2$3%4");
+    expect(result).toBe(9);
+  });
+
+  it("returns the correct result for multiple multi-character delimiters", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.add("//[$][%][ok]\n2$3%4ok100");
+    expect(result).toBe(109);
+  });
+
+  it("returns the correct result for multiple multi-character delimiters", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.add("//[$]\n2$3$4$200");
+    expect(result).toBe(209);
+  });
 });

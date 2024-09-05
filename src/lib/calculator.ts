@@ -11,12 +11,42 @@ function add(numbers: string): number {
     return 0;
   }
 
-  let { mode, numbers: numbersWithDelimiters } = processDelimiter(numbers);
+  const customDelimiters = extractDelimiters(numbers);
+  let mode = "add";
+
+  console.log({ customDelimiters });
+
+  if (customDelimiters.length > 1) {
+    numbers = numbers.split("\n")[1];
+    // logic that we want
+    customDelimiters.forEach((d: string) => {
+      numbers = numbers.replaceAll(d, ",");
+    });
+  } else {
+    if (customDelimiters.length == 1) {
+      try {
+        numbers = numbers.split("\n")[1];
+        numbers = numbers.replaceAll(customDelimiters[0], ",");
+        let { mode: newMode } = processDelimiter(numbers);
+        mode = newMode;
+      } catch (err) {
+        let { mode: newMode, numbers: numbersWithDelimiters } =
+          processDelimiter(numbers);
+        mode = newMode;
+        numbers = numbersWithDelimiters;
+      }
+    } else {
+      let { mode: newMode, numbers: numbersWithDelimiters } =
+        processDelimiter(numbers);
+      mode = newMode;
+      numbers = numbersWithDelimiters;
+    }
+  }
 
   // replace newlines with ,
-  numbersWithDelimiters = numbersWithDelimiters.replace(/\n/g, ",");
+  numbers = numbers.replace(/\n/g, ",");
 
-  const values = numbersWithDelimiters.split(",");
+  const values = numbers.split(",");
 
   if (mode == "multiply") {
     return handleMultiply(values);
@@ -34,6 +64,28 @@ function add(numbers: string): number {
 
   return result;
 }
+
+const extractDelimiters = (numbers: string): string[] => {
+  const delimiters: string[] = [];
+
+  if (!numbers.startsWith("//")) {
+    return [];
+  }
+
+  const numbersWithoutSlashes = numbers.slice(2);
+  const delimitersPortion = numbersWithoutSlashes.split("\n")[0];
+
+  const regex = /\[([^\]]+)\]/g;
+
+  let match;
+
+  while ((match = regex.exec(delimitersPortion)) !== null) {
+    // The captured delimiter is in the first group (index 1)
+    delimiters.push(match[1]);
+  }
+
+  return delimiters;
+};
 
 const processDelimiter = (
   numbers: string
@@ -109,4 +161,4 @@ const handleAdd = (
   };
 };
 
-export { add };
+export { add, extractDelimiters };

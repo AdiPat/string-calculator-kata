@@ -1,3 +1,5 @@
+type Mode = "add" | "multiply";
+
 /**
  * Adds a string of numbers separated by commas or a custom delimiter
  *
@@ -9,8 +11,42 @@ function add(numbers: string): number {
     return 0;
   }
 
+  let { mode, numbers: numbersWithDelimiters } = processDelimiter(numbers);
+
+  // replace newlines with ,
+  numbersWithDelimiters = numbersWithDelimiters.replace(/\n/g, ",");
+
+  const values = numbersWithDelimiters.split(",");
+
+  if (mode == "multiply") {
+    return handleMultiply(values);
+  }
+
+  const { invalidValueError, negativeValueError, result } = handleAdd(values);
+
+  if (invalidValueError) {
+    throw new Error(invalidValueError);
+  }
+
+  if (negativeValueError) {
+    throw new Error(negativeValueError);
+  }
+
+  return result;
+}
+
+const processDelimiter = (
+  numbers: string
+): { mode: Mode; numbers: string; customDelimiter: string } => {
+  let mode: Mode = "add";
+  let customDelimiter = "";
+
   if (numbers.startsWith("//")) {
     const customDelimiter = numbers[2];
+
+    if (customDelimiter === "*") {
+      mode = "multiply";
+    }
 
     if (numbers[3] === "\n") {
       numbers = numbers.substring(4);
@@ -21,11 +57,26 @@ function add(numbers: string): number {
     numbers = numbers.replaceAll(customDelimiter, ",");
   }
 
-  // replace newlines with ,
-  numbers = numbers.replace(/\n/g, ",");
+  return { mode, numbers, customDelimiter };
+};
 
-  const values = numbers.split(",");
+const handleMultiply = (values: string[]): number => {
+  let result = 1;
 
+  values.forEach((value) => {
+    result *= parseInt(value);
+  });
+
+  return result;
+};
+
+const handleAdd = (
+  values: string[]
+): {
+  result: number;
+  invalidValueError: string;
+  negativeValueError: string;
+} => {
   let invalidValueError = "";
   let negativeValueError = "";
 
@@ -51,15 +102,11 @@ function add(numbers: string): number {
     return acc + valueAsNumber;
   }, 0);
 
-  if (invalidValueError) {
-    throw new Error(invalidValueError);
-  }
-
-  if (negativeValueError) {
-    throw new Error(negativeValueError);
-  }
-
-  return result;
-}
+  return {
+    result,
+    invalidValueError,
+    negativeValueError,
+  };
+};
 
 export { add };

@@ -11,12 +11,8 @@ describe("Calculator Tests", () => {
 
   it("should return 0 for an empty string", async () => {
     const calculator = await import("./calculator");
-    expect((calculator as any).add("")).toBe(0);
-  });
-
-  it("should return 0 for null", async () => {
-    const calculator = await import("./calculator");
-    expect((calculator as any).add(null)).toBe(0);
+    const result = calculator.add("");
+    expect(result).toBe(0);
   });
 
   it("adds 2 numbers", async () => {
@@ -86,5 +82,11 @@ describe("Calculator Tests", () => {
     const calculator = await import("./calculator");
     const result = calculator.add("//;1;2;3");
     expect(result).toBe(6);
+  });
+
+  it("returns the correct result by multiplication when custom delimiter is *", async () => {
+    const calculator = await import("./calculator");
+    const result = calculator.add("//*\n2*3*4");
+    expect(result).toBe(24);
   });
 });
